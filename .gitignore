@@ -3,3 +3,4 @@
 *.seed
 *.out
 x_*
+*_dep.m
