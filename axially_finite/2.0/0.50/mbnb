@@ -1,0 +1,97 @@
+% ################################################################################### //// ######## //// ####### 
+% ##################### surfaces ###################### ############################# //// ######## //// ####### 
+% ################################################################################### //// ######## //// #######
+
+surf	axial1surf	cuboid	0	1	0	1	0.000000	13.333333
+surf	axial2surf	cuboid	0	1	0	1	13.333333	26.666667
+surf	axial3surf	cuboid	0	1	0	1	26.666667	40.000000
+surf	axial4surf	cuboid	0	1	0	1	40.000000	53.333333
+surf	axial5surf	cuboid	0	1	0	1	53.333333	66.666667
+surf	axial6surf	cuboid	0	1	0	1	66.666667	80.000000
+surf	axial7surf	cuboid	0	1	0	1	80.000000	93.333333
+surf	axial8surf	cuboid	0	1	0	1	93.333333	106.666667
+surf	axial9surf	cuboid	0	1	0	1	106.666667	120.000000
+surf	axial10surf	cuboid	0	1	0	1	120.000000	133.333333
+surf	axial11surf	cuboid	0	1	0	1	133.333333	146.666667
+surf	axial12surf	cuboid	0	1	0	1	146.666667	160.000000
+surf	axial13surf	cuboid	0	1	0	1	160.000000	173.333333
+surf	axial14surf	cuboid	0	1	0	1	173.333333	186.666667
+surf	axial15surf	cuboid	0	1	0	1	186.666667	200.000000
+
+surf domain cuboid 0. 1. 0. 1. 0. 200.
+
+% ################################################################################### //// ######## //// ####### 
+% ##################### cells ####################################################### //// ######## //// ####### 
+% ################################################################################### //// ######## //// ####### 
+
+cell axial1 1 axial1mat -axial1surf
+cell axial2 1 axial2mat -axial2surf
+cell axial3 1 axial3mat -axial3surf
+cell axial4 1 axial4mat -axial4surf
+cell axial5 1 axial5mat -axial5surf
+cell axial6 1 axial6mat -axial6surf
+cell axial7 1 axial7mat -axial7surf
+cell axial8 1 axial8mat -axial8surf
+cell axial9 1 axial9mat -axial9surf
+cell axial10 1 axial10mat -axial10surf
+cell axial11 1 axial11mat -axial11surf
+cell axial12 1 axial12mat -axial12surf
+cell axial13 1 axial13mat -axial13surf
+cell axial14 1 axial14mat -axial14surf
+cell axial15 1 axial15mat -axial15surf
+
+cell inner 0 fill 1 -domain
+cell outer 0 outside domain
+
+% ################################################################################### //// ######## //// ####### 
+% ##################### Materials   ################################################# //// ######## //// ####### 
+% ################################################################################### //// ######## //// #######
+
+include mbnb_mat
+
+% ################################################################################### //// ######## //// ####### 
+% ##################### Detectors   ################################################# //// ######## //// ####### 
+% ################################################################################### //// ######## //// #######
+
+% tallying spectrum used in dpa calculations
+det dpaspec n de dpaspec dm axial8mat
+
+ene dpaspec 1 1.00E-10 1.00E-09 1.00E-08 2.30E-08 5.00E-08 7.60E-08 1.15E-07 1.70E-07 2.55E-07 3.80E-07 5.50E-07 8.40E-07 1.28E-06 1.90E-06 2.80E-06 4.25E-06 6.30E-06 9.20E-06 1.35E-05 2.10E-05 3.00E-05 4.50E-05 6.90E-05 1.00E-04 1.35E-04 1.70E-04 2.20E-04 2.80E-04 3.60E-04 4.50E-04 5.75E-04 7.60E-04 9.60E-04 1.28E-03 1.60E-03 2.00E-03 2.70E-03 3.40E-03 4.50E-03 5.50E-03 7.20E-03 9.20E-03 1.20E-02 1.50E-02 1.90E-02 2.55E-02 3.20E-02 4.00E-02 5.25E-02 6.60E-02 0.088 0.11 0.135 0.16 0.19 0.22 0.225 0.29 0.32 0.36 0.4 0.45 0.5 0.55 0.6 0.66 0.72 0.78 0.84 0.92 1.0 1.2 1.4 1.6 1.8 2.0 2.3 2.6 2.9 3.3 3.7 4.1 4.5 5.0 5.5 6.0 6.7 7.4 8.2 9.0 10 11 12 13 14 15 16 17 18 19 20
+
+% ################################################################################### //// ######## //// ####### 
+% ##################### Set options ################################################# //// ######## //// ####### 
+% ################################################################################### //// ######## //// #######
+
+% --- set data library locations
+set acelib "/global/home/groups/co_nuclear/serpent/xsdata_2/endfb7/sss_endfb7u.xsdata" "/global/scratch/ckeckler/photon.xsdata"
+set declib "/global/home/groups/co_nuclear/serpent/xsdata_2/endfb7/sss_endfb7.dec"
+set nfylib "/global/home/groups/co_nuclear/serpent/xsdata_2/endfb7/sss_endfb7.nfy"
+set pdatadir "/global/home/groups/co_nuclear/serpent/photon_data"
+
+% --- set normalization
+set flux 4E17 %taken from the BnB ADOPT calculations used for the ARC study in the center portion of the core
+
+% --- Reduce energy grid size:
+%set egrid 5E-3 1E-5 10.0
+
+% --- Cut-offs:
+set fpcut   1E-9
+set stabcut 1E-12
+set ttacut  1E-18
+set xsfcut  1E-6
+
+% --- ???
+set pcc 0
+%set printm 1
+set nbuf 8
+%set rfw yes binaryRestart
+
+% -- boundary conditions
+set bc 2 2 1
+
+% --- set depletion settings
+dep daystep 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 50 200 200 200 200 200 200 200 200 200 200 200 200 200 200 200 500 500 500 500 500 500 500 500 500 500 500 500 500 500 500 500 500 500 500 500
+set inventory all
+
+% --- criticality settings
+set pop 600000 100 20 1 20 20
